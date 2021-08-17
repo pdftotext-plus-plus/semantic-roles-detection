@@ -1,0 +1,38 @@
+---
+version: 1
+
+kind: experiment
+
+# "/data/1/korzen" in the paths below points to "titan:/local/hdd/exports/data/korzen"
+declarations:
+  model_file: /data/1/korzen/semantic-roles-detection/models/OjWcs-model.h5
+  input_dir: /data/1/korzen/semantic-roles-detection/dataset
+  max_num_files: 10
+  prefix: ""
+  suffix: .tsv
+  log_level: debug
+
+logging:
+  level: "INFO"
+
+environment:
+  resources:
+    cpu:
+      requests: 1
+      limits: 1
+    gpu:
+      requests: 1
+      limits: 1
+
+build:
+  image: tensorflow/tensorflow:2.1.0-gpu-py3
+  build_steps:
+    - pip3 install --no-cache-dir -U polyaxon-client
+
+run:
+  cmd: python3 evaluate.py --model_file "{{ model_file }}" \
+                           --input_dir "{{ input_dir }}" \
+                           --max_num_files "{{ max_num_files }}" \
+                           --prefix "{{ prefix }}" \
+                           --suffix "{{ suffix }}" \
+                           --log_level "{{ log_level }}"

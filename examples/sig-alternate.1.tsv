@@ -1,0 +1,4 @@
+# BLOCK	role	position1;position2;...;positionN (each in the format 'page,minX,minY,maxX,maxY')	fontBaseName;fontFamilyName;normalizedFontName;fontSize;isBold;isItalic;isType3Font (each based on the most common font among the characters of a building block)	text
+BLOCK	AUTHOR_MAIL	1,92.10,702.80,517.60,720.00	nimbussanl;nimbus sans l;nimbussanl-bold;17.9;1;0;0	miller@gmail.com.
+# PAGE	num	height	width
+PAGE	1	850	575.2

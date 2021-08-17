@@ -1,0 +1,86 @@
+---
+version: 1
+
+kind: experiment
+
+# "/data/1/korzen" in the paths below points to "titan:/local/hdd/exports/data/korzen"
+declarations:
+  input_dir: /data/1/korzen/semantic-roles-detection/dataset
+  output_dir: /data/1/korzen/semantic-roles-detection/models
+  prefix: ""
+  suffix: .tsv
+  max_num_files: -1
+  shuffle: True
+  encoding: "bpe"
+  words_vocab_file: /data/1/korzen/semantic-roles-detection/vocabs/vocab-words.tsv
+  roles_vocab_file: /data/1/korzen/semantic-roles-detection/vocabs/vocab-roles.tsv
+  # Control characters like \n and \t need to be unescaped.
+  # word_delimiters: "!#$%&()*+,-./:;<=>?@[\\]^_{|}~\\t\\n "
+  word_delimiters: "\\t\\n "
+  lowercase_words: False
+  num_words_per_seq: 100
+  include_positions: True
+  include_font_sizes: True
+  include_font_styles: True
+  include_char_features: False
+  include_semantic_features: False
+  countries_db_file: /data/1/korzen/country-names/country-names.txt
+  human_names_db_file: /data/1/korzen/human-names/full-names.txt
+  dropout: 0.2
+  activation: softmax
+  loss: categorical_crossentropy
+  optimizer: adam
+  log_learning_rate: -3
+  validation_split: 0.1
+  epochs: 3
+  use_tensorboard: True
+  progress_bar_update_frequency: 0.1
+  log_level: debug
+
+logging:
+  level: "INFO"
+
+environment:
+  resources:
+    cpu:
+      requests: 1
+      limits: 1
+    gpu:
+      requests: 1
+      limits: 1
+
+build:
+  image: tensorflow/tensorflow:2.1.0-gpu-py3
+  build_steps:
+    - pip3 install --no-cache-dir -U polyaxon-client
+
+run:
+  cmd: python3 train.py --input_dir "{{ input_dir }}" \
+                        --output_dir "{{ output_dir }}" \
+                        --prefix "{{ prefix }}" \
+                        --suffix "{{ suffix }}" \
+                        --max_num_files "{{ max_num_files }}" \
+                        --shuffle "{{ shuffle }}" \
+                        --encoding "{{ encoding }}" \
+                        --words_vocab_file "{{ words_vocab_file }}" \
+                        --roles_vocab_file "{{ roles_vocab_file }}" \
+                        --word_delimiters "{{ word_delimiters }}" \
+                        --lowercase_words "{{ lowercase_words }}" \
+                        --num_words_per_seq "{{ num_words_per_seq }}" \
+                        --include_positions "{{ include_positions }}" \
+                        --include_font_sizes "{{ include_font_sizes }}" \
+                        --include_font_styles "{{ include_font_styles }}" \
+                        --include_char_features "{{ include_char_features }}" \
+                        --include_semantic_features "{{ include_semantic_features }}" \
+                        --countries_db_file "{{ countries_db_file }}" \
+                        --human_names_db_file "{{ human_names_db_file }}" \
+                        --dropout "{{ dropout }}" \
+                        --activation "{{ activation }}" \
+                        --loss "{{ loss }}" \
+                        --optimizer "{{ optimizer }}" \
+                        --log_learning_rate "{{ log_learning_rate }}" \
+                        --validation_split "{{ validation_split }}" \
+                        --epochs "{{ epochs }}" \
+                        --use_tensorboard "{{ use_tensorboard }}" \
+                        --progress_bar_update_frequency "{{ progress_bar_update_frequency }}" \
+                        --log_level "{{ log_level }}"

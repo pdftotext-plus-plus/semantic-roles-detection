@@ -1,0 +1,17 @@
+# BLOCK	role	position1;position2;...;positionN (each in the format 'page,minX,minY,maxX,maxY')	fontBaseName;fontFamilyName;normalizedFontName;fontSize;isBold;isItalic;isType3Font (each based on the most common font among the characters of a building block)	text
+BLOCK	TITLE	1,62.00,682.80,547.70,720.00	nimbussanl;nimbus sans l;nimbussanl-bold;17.9;1;0;0	A comprehensive survey.
+BLOCK	AUTHOR_NAME	1,114.80,642.90,202.40,654.20	nimbussanl;nimbus sans l;nimbussanl-regu;12.0;0;0;0	Antony Maciocia
+BLOCK	AUTHOR_COUNTRY	1,143.00,613.90,174.20,621.40	nimbussanl;nimbus sans l;nimbussanl-regu;10.0;0;0;0	Mexico
+BLOCK	AUTHOR_MAIL	1,100.50,583.60,216.70,607.20	nimbussanl;nimbus sans l;nimbussanl-regu;12.0;0;0;0	antony-maciocia@uppuebla.edu.mx
+BLOCK	AUTHOR_INSTITUTION	1,104.70,624.30,212.50,642.30	nimbussanl;nimbus sans l;nimbussanl-regu;10.0;0;0;0	Polytechnic University of Puebla
+BLOCK	AUTHOR_NAME	1,263.40,645.20,346.30,654.20	nimbussanl;nimbus sans l;nimbussanl-regu;12.0;0;0;0	Kiavash Kianfar
+BLOCK	AUTHOR_COUNTRY	1,278.60,622.40,331.20,631.90	nimbussanl;nimbus sans l;nimbussanl-regu;10.0;0;0;0	Afghanistan
+BLOCK	AUTHOR_MAIL	1,249.10,597.90,360.60,617.50	nimbussanl;nimbus sans l;nimbussanl-regu;12.0;0;0;0	kiavash.kianfar@hotmail.es
+BLOCK	AUTHOR_INSTITUTION	1,261.00,632.80,348.70,642.30	nimbussanl;nimbus sans l;nimbussanl-regu;10.0;0;0;0	Loghman University
+BLOCK	AUTHOR_NAME	1,428.90,645.20,473.30,654.30	nimbussanl;nimbus sans l;nimbussanl-regu;12.0;0;0;0	Cian Lin
+BLOCK	HEADING_HEADING	1,74.70,504.70,139.20,513.20	nimbusromnol;nimbus roman no9 l;nimbusromno9l-medi;12.0;1;0;0	Abstract
+BLOCK	PARAGRAPHS	1,53.80,219.80,292.90,498.30	lmroman;;lmroman9-regular;9.0;0;0;0	This is the Abstract.
+BLOCK	HEADING_HEADING	1,74.70,190.60,277.90,199.10	nimbusromnol;nimbus roman no9 l;nimbusromno9l-medi;12.0;1;0;0	Introduction
+BLOCK	PARAGRAPHS	1,62.80,176.10,292.90,184.20;1,316.80,273.00,556.30,511.20	lmroman;;lmroman9-regular;9.0;0;0;0	This is the Introduction.
+# PAGE	num	height	width
+PAGE	1	850	575.2

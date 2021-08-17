@@ -1,0 +1,10 @@
+# BLOCK role	position1;position2;...;positionN (each in the format 'page,minX,minY,maxX,maxY')	fontBaseName;fontFamilyName;normalizedFontName;fontSize;isBold;isItalic;isType3Font (each based on the most common font among the characters of a building block)	text
+BLOCK	AUTHOR_NAME	1,200,540,280,550	lmroman;;lmroman12-regular;12.0;0;0;0	Ben Müller
+BLOCK	PUBLICATION-DATE	1,0,0,0,0	lmroman;;lmroman12-regular;12.0;0;0;0	September 2017
+BLOCK	TITLE	1,141.90,571.40,469.40,627.30	arial;;arial17-bold;17.2;0;1;0	A catchy title!
+BLOCK	HEADING_HEADING	2,158.00,332.30,219.70,342.40	lmroman;;lmroman12-bold;14.3;1;0;0	Abstract
+BLOCK	PARAGRAPHS	3,210,460,230,500	lmroman;;lmroman10-regular;10.0;0;0;0	Bullshit-Bingo.
+# PAGE	num	height	width
+PAGE	1	1000	480
+PAGE	2	841.89	595.276
+PAGE	3	480	220

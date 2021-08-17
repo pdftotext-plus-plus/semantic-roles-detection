@@ -1,0 +1,8 @@
+# BLOCK	role	position1;position2;...;positionN (each in the format 'page,minX,minY,maxX,maxY')	fontBaseName;fontFamilyName;normalizedFontName;fontSize;isBold;isItalic;isType3Font (each based on the most common font among the characters of a building block)	text
+BLOCK	TITLE	1,62.00,682.80,547.70,720.00	nimbussanl;nimbus sans l;nimbussanl-bold;17.9;1;0;0	A comprehensive survey.
+BLOCK	AUTHOR_NAME	1,114.80,642.90,202.40,654.20	arial;;arial-bold;12.0;0;0;0	Anne Müller
+BLOCK	AUTHOR_COUNTRY	1,143.00,613.90,174.20,621.40	nimbussanl;nimbus sans l;nimbussanl-regu;10.0;0;0;0	Mexico
+BLOCK	PARAGRAPHS	2,62.80,176.10,292.90,184.20;1,316.80,273.00,556.30,511.20	lmroman;;lmroman9-regular;9.0;0;0;0	1 Introduction.
+# PAGE	num	height	width
+PAGE	1	850	575.2
+PAGE	2	750	675.7
