@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: semantic-roles-detection
+Version: 0.0.1
+Summary: A project for predicting the semantic roles of text blocks extracted from PDF.
+Home-page: https://github.com/PdfActML/semantic-roles-detection
+Author: Claudius Korzen
+Author-email: korzen@informatik.uni-freiburg.de
+License: UNKNOWN
+Keywords: sample,setuptools,development
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/markdown
+
+# How to run the Keras model in C++ Tensorflow
+
+(1) **Training**: Train your model by using `train.py`. At the end of the training, the model will
+    be stored in an `*.h5` file (which is in HDF5 format).
+(2) **Convert `*.h5` to .pb**: Convert the `*.h5` file produced in the previous step to a *.pb file
+    by using the `keras_to_tensorflow.py` script. The usage is as follows:
+
+    python3 keras_to_tensorflow.py --model IChXO-model.h5 --numout 14 --prefix IChXO --name IChXO-model.pb
+
+# Install as package
+
+python3 setup.py install --user
+

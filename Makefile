@@ -1,7 +1,7 @@
 DOCTEST_CMD = python3 -m doctest
 UNITTEST_CMD = python3 -m unittest
 COMPILE_CMD = python3 -m py_compile
-CHECKSTYLE_CMD = flake8 --max-line-length=99
+CHECKSTYLE_CMD = flake8 --max-line-length=100
 DOCKER_CMD = $(shell which wharfer || which docker)
 
 PROJECT_NAME = pdfact-ml.semantic-roles-detection
@@ -117,8 +117,8 @@ help-vocabularies:
 .PHONY: vocabularies
 vocabularies:
 	$(DOCKER_CMD) build -t $(PROJECT_NAME) .
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)):/input -v $(shell realpath $(VOCABS_DIR)):/output --name $(PROJECT_NAME)-vocabularies $(PROJECT_NAME) scripts/create_bpe_words_vocab_file.py --input_dir /input --output_file /output/vocab-words.tsv
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)):/input -v $(shell realpath $(VOCABS_DIR)):/output --name $(PROJECT_NAME)-vocabularies $(PROJECT_NAME) scripts/create_roles_vocab_file.py --input_dir /input --output_file /output/vocab-roles.tsv
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)):/input -v $(shell realpath $(VOCABS_DIR)):/output --name $(PROJECT_NAME)-vocabularies $(PROJECT_NAME) scripts/create_bpe_vocab_file.py --input_dir /input --output_file /output/bpe-vocab.tsv
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)):/input -v $(shell realpath $(VOCABS_DIR)):/output --name $(PROJECT_NAME)-vocabularies $(PROJECT_NAME) scripts/create_roles_vocab_file.py --input_dir /input --output_file /output/roles-vocab.tsv
 
 # ==================================================================================================
 
@@ -127,17 +127,17 @@ help-train:
 	@echo "Trains a new learning model for semantic roles detection."
 	@echo
 	@echo "Args:"
-	@echo "  - TRAIN_GROUND_TRUTH_DIR: The path to the training ground truth."
-	@echo "                            Default: \"$(TRAIN_GROUND_TRUTH_DIR)\""
-	@echo "  - MODEL_DIR:              The path to the directory to which the trained learning"
-	@echo "                            model (and the vocab files) should be written."
-	@echo "                            Default: \"$(MODEL_DIR)\""
-	@echo "  - NUM_EPOCHS:             The number of training epochs."
-	@echo "                            Default: $(NUM_EPOCHS)"
+	@echo "  - GROUND_TRUTH_DIR: The path to the ground truth directory."
+	@echo "                      Default: \"$(GROUND_TRUTH_DIR)\""
+	@echo "  - MODEL_DIR:        The path to the directory to which the trained learning model (and "
+	@echo "                      the vocab files) should be written."
+	@echo "                      Default: \"$(MODEL_DIR)\""
+	@echo "  - NUM_EPOCHS:       The number of training epochs."
+	@echo "                      Default: $(NUM_EPOCHS)"
 
 train:
 	$(DOCKER_CMD) build -t $(PROJECT_NAME) .
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/train):/input -v $(shell realpath $(MODEL_DIR)):/output -v $(shell realpath $(VOCABS_DIR)):/vocabs --name $(PROJECT_NAME)-train $(PROJECT_NAME) train.py --epochs $(NUM_EPOCHS) --words_vocab_file /vocabs/vocab-words.tsv --roles_vocab_file /vocabs/vocab-roles.tsv
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/train):/ground-truth -v $(shell realpath $(MODEL_DIR)):/output -v $(shell realpath $(VOCABS_DIR)):/vocabs --name $(PROJECT_NAME)-train $(PROJECT_NAME) src/semantic_roles_detection/train.py --epochs $(NUM_EPOCHS) --bpe_vocab_file /vocabs/bpe-vocab.tsv --roles_vocab_file /vocabs/roles-vocab.tsv
 
 # ==================================================================================================
 
@@ -156,24 +156,24 @@ help-evaluate:
 
 evaluate:
 	$(DOCKER_CMD) build -t $(PROJECT_NAME) .
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/evaluate):/input -v $(shell realpath $(MODEL_DIR)):/model -v $(shell realpath $(EVALUATION_RESULT_DIR)):/output --name $(PROJECT_NAME)-evaluate $(PROJECT_NAME) evaluate.py --create-images
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/evaluate):/ground-truth -v $(shell realpath $(MODEL_DIR)):/model -v $(shell realpath $(EVALUATION_RESULT_DIR)):/output --name $(PROJECT_NAME)-evaluate $(PROJECT_NAME) src/semantic_roles_detection/evaluate.py --create-images
 
 # ==================================================================================================
 
 checkstyle:
-	@find * -name "*.py" | xargs $(CHECKSTYLE_CMD)
+	@find src scripts -name "*.py" | xargs $(CHECKSTYLE_CMD)
 
 compile:
-	@find * -name "*.py" | xargs $(COMPILE_CMD)
+	@find src scripts -name "*.py" | xargs $(COMPILE_CMD)
 
 test: doctest unittest
 
 doctest:
-	@find * -name "*.py" | xargs $(DOCTEST_CMD)
+	@find src scripts -name "*.py" | xargs $(DOCTEST_CMD)
 
 unittest:
-	@find * -name "test_*.py" | xargs $(UNITTEST_CMD)
+	@find src scripts -name "test_*.py" | xargs $(UNITTEST_CMD)
 
 clean:
-	@find . -name *.pyc | xargs rm -rf
-	@find . -name __pycache__ | xargs rm -rf
+	@find * -name *.pyc | xargs rm -rf
+	@find * -name __pycache__ | xargs rm -rf

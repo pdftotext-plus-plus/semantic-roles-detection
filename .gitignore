@@ -3,3 +3,7 @@ __pycache__
 *.pyc
 **/*.pyc
 data
+.polyaxon
+.vscode
+build
+dist

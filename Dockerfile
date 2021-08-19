@@ -12,10 +12,10 @@ RUN pip3 install -r requirements.txt
 
 # ==================================================================================================
 
-COPY utils /utils
-COPY scripts /scripts
-COPY vocabs /vocabs
-COPY *.py /
+COPY src src
+COPY models models
+COPY scripts scripts
+COPY vocabs vocabs
 
 # CMD ["bash"]
 ENTRYPOINT ["python3"]

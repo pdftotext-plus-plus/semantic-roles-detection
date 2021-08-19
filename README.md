@@ -6,3 +6,7 @@
     by using the `keras_to_tensorflow.py` script. The usage is as follows:
 
     python3 keras_to_tensorflow.py --model IChXO-model.h5 --numout 14 --prefix IChXO --name IChXO-model.pb
+
+# Install as package
+
+python3 setup.py install --user
