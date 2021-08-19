@@ -12,9 +12,9 @@ import logging
 import os
 from typing import List
 
-import numpy as np
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Disable log output of tensorflow  # NOQA
 
-import tensorflow.keras as keras
+import numpy as np
 
 from semantic_roles_detection.utils import dotdict
 from semantic_roles_detection.utils import feature_encoder
@@ -22,6 +22,8 @@ from semantic_roles_detection.utils import log_utils
 from semantic_roles_detection.utils import metrics
 from semantic_roles_detection.utils import vocab_utils
 from semantic_roles_detection.utils.models import Page, TextBlock
+
+import tensorflow.keras as keras
 
 # =================================================================================================
 # Configure the logging.

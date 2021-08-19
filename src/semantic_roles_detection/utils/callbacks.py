@@ -11,9 +11,10 @@ Claudius Korzen <korzen@cs.uni-freiburg.de>
 import math
 from typing import Union
 
+from semantic_roles_detection.utils import log_utils
+
 import tensorflow.keras as keras
 
-from semantic_roles_detection.utils import log_utils
 
 # ==================================================================================================
 

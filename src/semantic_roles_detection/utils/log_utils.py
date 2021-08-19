@@ -13,7 +13,7 @@ import logging
 # Parameters.
 
 # The default logging formatter.
-FORMATTER = logging.Formatter("%(asctime)s - %(origin)50.50s - %(levelname)-5s : %(message)s")
+FORMATTER = logging.Formatter("%(asctime)s - %(origin)30.50s - %(levelname)-7s : %(message)s")
 # The default logging level.
 LOGGING_LEVEL = logging.DEBUG
 

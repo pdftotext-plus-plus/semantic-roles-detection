@@ -13,6 +13,8 @@ import logging
 import os
 import shutil
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Disable log output of tensorflow  # NOQA
+
 import tensorflow.keras as keras
 
 from utils import argparse_types
