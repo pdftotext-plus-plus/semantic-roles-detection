@@ -10,14 +10,12 @@ Claudius Korzen <korzen@cs.uni-freiburg.de>
 """
 
 import argparse
-import sys
 from typing import List
 
-sys.path.append("../src/semantic_roles_detection")  # Needed so that utils.* can be found.  # NOQA
-from utils import ground_truth_reader
-from utils import log_utils
-from utils import vocab_utils
-from utils.models import Document
+from semantic_roles_detection.utils import ground_truth_reader
+from semantic_roles_detection.utils import log_utils
+from semantic_roles_detection.utils import vocab_utils
+from semantic_roles_detection.utils.models import Document
 
 # =================================================================================================
 # Configure the logging.

@@ -42,7 +42,7 @@ logging.getLogger("urllib3").setLevel(logging.ERROR)
 PARENT_DIR = os.path.dirname(__file__)
 # The directory of the model to use for the prediction.
 # MODEL_DIR = os.path.join(PARENT_DIR, "models/2021-08-13_model-with-header-footers-included")
-MODEL_DIR = os.path.join(PARENT_DIR, "models/test")
+MODEL_DIR = os.path.join(PARENT_DIR, "models/2021-08-30_model-for-pdftotei-text-block-extraction")
 # The name of the args file.
 ARGS_FILE_NAME = "model-args.json"
 # The name of the BPE vocab file.
@@ -88,7 +88,8 @@ def predict(blocks: List[TextBlock], pages: List[Page]):
     LOG.info("Reading the vocabulary files ...")
     vocab_reader = vocab_utils.VocabularyReader()
     bpe_vocab = vocab_reader.read(os.path.join(MODEL_DIR, BPE_VOCAB_FILE_NAME))
-    roles_vocab = vocab_reader.read(os.path.join(MODEL_DIR, ROLES_VOCAB_FILE_NAME))
+    roles_vocab = vocab_reader.read(
+        os.path.join(MODEL_DIR, ROLES_VOCAB_FILE_NAME))
 
     # Encode the text blocks.
     LOG.info("Encoding the text ground truth ...")
@@ -144,3 +145,14 @@ def predict(blocks: List[TextBlock], pages: List[Page]):
     # Translate the ids to role names.
     for i in range(len(predicted_roles)):
         blocks[i].role = encoder.rev_roles_vocab[predicted_roles[i]]
+
+if __name__ == "__main__":
+    page = Page(page_num=1, width=500, height=720)
+
+    block = TextBlock(
+      id = 123, text = "Hello World", page_num = 1, lower_left_x = 30, lower_left_y = 70,
+      upper_right_x = 120, upper_right_y = 140, font_name = "Arial", font_size = 12, is_bold=False, is_italic=True)
+
+    predict([block], [page])
+
+    print(block.role)

@@ -13,11 +13,14 @@ RUN pip3 install -r requirements.txt
 # ==================================================================================================
 
 COPY src src
-COPY models models
 COPY scripts scripts
 COPY vocabs vocabs
+COPY *.py ./
 
-# CMD ["bash"]
+# Install the project as a package.
+COPY README.md README.md
+RUN python3 setup.py install
+
 ENTRYPOINT ["python3"]
 
 # ==================================================================================================

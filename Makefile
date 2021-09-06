@@ -81,7 +81,8 @@ ground-truth:
 
 # TODO: This should be moved to a project related to page segmentation.
 ground-truth-elias:
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(TEX_INPUT_DIR)):/input -v /local/data/korzen/pdfact-ml/page-segmentation/ground-truth-new-format:/output --name pdfact-ml.ground-truth-generator-ps pdfact-ml.ground-truth-generator --max-num-docs $(NUM_DOCS) --serializer ps --create-words-visualization --create-blocks-visualization --log $(LOG)
+	cd ../ground-truth-generator; $(DOCKER_CMD) build -t pdfact-ml.ground-truth-generator .	
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(TEX_INPUT_DIR)):/input -v /local/data/korzen/pdfact-ml/page-segmentation/ground-truth-100000-random-arxiv-articles:/output --name pdfact-ml.ground-truth-generator-ps pdfact-ml.ground-truth-generator --max-num-docs $(NUM_DOCS) --serializer ps --create-words-visualization --create-blocks-visualization --log $(LOG)
 
 # ==================================================================================================
 
@@ -137,7 +138,7 @@ help-train:
 
 train:
 	$(DOCKER_CMD) build -t $(PROJECT_NAME) .
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/train):/ground-truth -v $(shell realpath $(MODEL_DIR)):/output -v $(shell realpath $(VOCABS_DIR)):/vocabs --name $(PROJECT_NAME)-train $(PROJECT_NAME) src/semantic_roles_detection/train.py --epochs $(NUM_EPOCHS) --bpe_vocab_file /vocabs/bpe-vocab.tsv --roles_vocab_file /vocabs/roles-vocab.tsv
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/train):/ground-truth -v $(shell realpath $(MODEL_DIR)):/output -v $(shell realpath $(VOCABS_DIR)):/vocabs --name $(PROJECT_NAME)-train $(PROJECT_NAME) cmd_train.py --epochs $(NUM_EPOCHS) --bpe_vocab_file /vocabs/bpe-vocab.tsv --roles_vocab_file /vocabs/roles-vocab.tsv
 
 # ==================================================================================================
 
@@ -156,7 +157,7 @@ help-evaluate:
 
 evaluate:
 	$(DOCKER_CMD) build -t $(PROJECT_NAME) .
-	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/evaluate):/ground-truth -v $(shell realpath $(MODEL_DIR)):/model -v $(shell realpath $(EVALUATION_RESULT_DIR)):/output --name $(PROJECT_NAME)-evaluate $(PROJECT_NAME) src/semantic_roles_detection/evaluate.py --create-images
+	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(GROUND_TRUTH_DIR)/evaluate):/ground-truth -v $(shell realpath $(MODEL_DIR)):/model -v $(shell realpath $(EVALUATION_RESULT_DIR)):/output --name $(PROJECT_NAME)-evaluate $(PROJECT_NAME) cmd_evaluate.py --create-images
 
 # ==================================================================================================
 

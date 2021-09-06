@@ -645,8 +645,8 @@ class FeatureEncoder:
         """
         encoded_roles = []
         for block in text_blocks:
-            if block.role not in roles_vocab:
-                LOG.warn(f"Roles vocabulary does not contain role '{block.role}'.")
+            # if block.role not in roles_vocab:
+            #     LOG.warn(f"Roles vocabulary does not contain role '{block.role}'.")
 
             encoded_role = roles_vocab.get(block.role, -1)
             one_hot_encoded_role = [0] * len(roles_vocab)
