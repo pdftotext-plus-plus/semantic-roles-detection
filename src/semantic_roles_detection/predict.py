@@ -29,7 +29,7 @@ import tensorflow.keras as keras
 # Configure the logging.
 
 LOG = log_utils.get_logger(__name__)
-LOG.setLevel(log_utils.to_log_level("debug"))
+LOG.setLevel(log_utils.to_log_level("error"))
 
 # Disable the debug output of some third-party libraries.
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
@@ -68,6 +68,10 @@ def predict(blocks: List[TextBlock], pages: List[Page]):
             the pages are sorted in ascending order (with the first page being the first element of
             this list).
     """
+    # Do nothing if there are no blocks.
+    if not blocks:
+      return
+
     # ---------------------------------------------------------------------------------------------
     # Read the args file of the model (containing the parameters used on training the model).
 
@@ -149,10 +153,32 @@ def predict(blocks: List[TextBlock], pages: List[Page]):
 if __name__ == "__main__":
     page = Page(page_num=1, width=500, height=720)
 
-    block = TextBlock(
-      id = 123, text = "Hello World", page_num = 1, lower_left_x = 30, lower_left_y = 70,
-      upper_right_x = 120, upper_right_y = 140, font_name = "Arial", font_size = 12, is_bold=False, is_italic=True)
+    block1 = TextBlock(
+      id = 123,
+      text = "Hello World",
+      page_num = 1,
+      lower_left_x = 30,
+      lower_left_y = 70,
+      upper_right_x = 120,
+      upper_right_y = 140,
+      font_name = "Arial",
+      font_size = 12,
+      is_bold=False,
+      is_italic=True
+    )
 
-    predict([block], [page])
+    block2 = TextBlock(
+      id = 123,
+      text = "",
+      page_num = 1,
+      lower_left_x = 30,
+      lower_left_y = 70,
+      upper_right_x = 120,
+      upper_right_y = 140,
+      font_name = "Arial",
+      font_size = 12,
+      is_bold=False,
+      is_italic=True
+    )
 
-    print(block.role)
+    predict([block1, block2], [page])
