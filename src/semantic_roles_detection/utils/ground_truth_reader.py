@@ -257,7 +257,7 @@ class GroundTruthReader():
                     block.is_italic = int(fields[12].strip())
 
                     # Get the text.
-                    block.text = fields[14].strip()
+                    block.text = fields[14].strip() if len(fields) > 14 else ""
 
                     doc.blocks.append(block)
 

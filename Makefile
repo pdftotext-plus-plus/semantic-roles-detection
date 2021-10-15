@@ -5,7 +5,8 @@ CHECKSTYLE_CMD = flake8 --max-line-length=100
 DOCKER_CMD = $(shell which wharfer || which docker)
 
 PROJECT_NAME = pdfact-ml.semantic-roles-detection
-TEX_INPUT_DIR = /local/data/korzen/datasets/arxiv-subset-pdf-extraction-benchmark
+# TEX_INPUT_DIR = /local/data/korzen/datasets/arxiv-subset-pdf-extraction-benchmark
+TEX_INPUT_DIR = /local/data/korzen/datasets/arxiv-subset-100000-random/
 GROUND_TRUTH_DIR = $(shell pwd)/data/ground-truth/
 VOCABS_DIR = $(shell pwd)/data/vocabs/
 MODEL_DIR = $(shell pwd)/data/models/$(shell date +'%y-%m-%d_%H-%M-%S')/
@@ -81,7 +82,7 @@ ground-truth:
 
 # TODO: This should be moved to a project related to page segmentation.
 ground-truth-elias:
-	cd ../ground-truth-generator; $(DOCKER_CMD) build -t pdfact-ml.ground-truth-generator .	
+	cd ../ground-truth-generator; $(DOCKER_CMD) build -t pdfact-ml.ground-truth-generator .
 	$(DOCKER_CMD) run --rm -it -v $(shell realpath $(TEX_INPUT_DIR)):/input -v /local/data/korzen/pdfact-ml/page-segmentation/ground-truth-100000-random-arxiv-articles:/output --name pdfact-ml.ground-truth-generator-ps pdfact-ml.ground-truth-generator --max-num-docs $(NUM_DOCS) --serializer ps --create-words-visualization --create-blocks-visualization --log $(LOG)
 
 # ==================================================================================================
