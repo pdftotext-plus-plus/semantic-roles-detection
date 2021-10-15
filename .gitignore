@@ -7,3 +7,4 @@ data
 .vscode
 build
 dist
+*.egg-info
